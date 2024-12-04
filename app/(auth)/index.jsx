@@ -1,9 +1,11 @@
 import { View, StyleSheet } from "react-native";
 
-import SubmitSign from "../assets/Components/SubmitSign";
-import TitreLogo from "../assets/Components/TitreLogo";
-import TextInputA from "../assets/Components/TextInputA";
-import PasswordTextInput from "../assets/Components/PasswordTextInput";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import SubmitSign from "../../assets/Components/SubmitSign";
+import TitreLogo from "../../assets/Components/TitreLogo";
+import TextInputA from "../../assets/Components/TextInputA";
+import PasswordTextInput from "../../assets/Components/PasswordTextInput";
 import Constants from "expo-constants";
 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -11,6 +13,7 @@ import axios from "axios";
 import { useState } from "react";
 
 const Login = () => {
+  const { login } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsloading] = useState(false);
@@ -25,9 +28,9 @@ const Login = () => {
           "https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/user/log_in",
           { email: userInfo.email, password: userInfo.password }
         );
+        console.log();
+        login(response.data.token, response.data.id);
         setIsloading(false);
-        alert("connexion Réussie");
-        // <Redirect href="/anotherPage" />;
       } catch (error) {
         setIsloading(false);
 

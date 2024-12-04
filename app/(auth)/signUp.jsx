@@ -4,12 +4,16 @@ import axios from "axios";
 import { useState } from "react";
 import Constants from "expo-constants";
 
-import SubmitSign from "../assets/Components/SubmitSign";
-import TitreLogo from "../assets/Components/TitreLogo";
-import TextInputA from "../assets/Components/TextInputA";
-import PasswordTextInput from "../assets/Components/PasswordTextInput";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import SubmitSign from "../../assets/Components/SubmitSign";
+import TitreLogo from "../../assets/Components/TitreLogo";
+import TextInputA from "../../assets/Components/TextInputA";
+import PasswordTextInput from "../../assets/Components/PasswordTextInput";
 
 const SignUp = () => {
+  const { login } = useContext(AuthContext);
+
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
@@ -51,8 +55,8 @@ const SignUp = () => {
           setIsloading(false);
 
           console.log(response.data);
-
-          alert("connexion Réussie");
+          login(response.data.token, response.data.id);
+          // alert("connexion Réussie");
         } catch (error) {
           setIsloading(false);
           console.log(error.response.data.error);

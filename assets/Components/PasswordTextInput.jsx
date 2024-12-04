@@ -21,6 +21,8 @@ const PasswordTextInput = ({
   return (
     <View style={styles.password}>
       <TextInput
+        autoComplete="off"
+        autoCorrect={false}
         style={styles.passwordInput}
         secureTextEntry={showPassword ? false : true}
         placeholder={placeholder}

@@ -15,7 +15,7 @@ const SubmitSign = ({ title, isLoading, handlePress, route, errorMessage }) => {
       <Pressable disabled={isLoading ? true : false} onPress={handlePress}>
         <Text style={styles.button}>{title}</Text>
       </Pressable>
-      <Link href={route} style={styles.text} push>
+      <Link href={route} style={styles.text} replace>
         Already have an account ? {title === "Sign In" ? "Sign Up" : "Sign In"}
       </Link>
     </View>
