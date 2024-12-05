@@ -21,6 +21,7 @@ const PasswordTextInput = ({
   return (
     <View style={styles.password}>
       <TextInput
+        autoCapitalize="none"
         autoComplete="off"
         autoCorrect={false}
         style={styles.passwordInput}

@@ -29,7 +29,7 @@ const Login = () => {
           { email: userInfo.email, password: userInfo.password }
         );
         console.log();
-        login(response.data.token, response.data.id);
+        login(response.data.token, response.data.id, response.data);
         setIsloading(false);
       } catch (error) {
         setIsloading(false);

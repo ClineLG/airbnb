@@ -11,6 +11,7 @@ const TextInputA = ({
   const styles = useStyle();
   return (
     <TextInput
+      autoCapitalize="none"
       multiline={multiline}
       style={multiline ? styles.textArea : styles.textIn}
       placeholder={placeholder}

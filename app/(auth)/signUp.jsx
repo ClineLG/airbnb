@@ -55,7 +55,7 @@ const SignUp = () => {
           setIsloading(false);
 
           console.log(response.data);
-          login(response.data.token, response.data.id);
+          login(response.data.token, response.data.id, response.data);
           // alert("connexion Réussie");
         } catch (error) {
           setIsloading(false);

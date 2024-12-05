@@ -1,30 +1,51 @@
 import { useState, useEffect } from "react";
-import { Stack, router } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { AuthContext } from "../context/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const RootLayout = () => {
-  const [userID, setuserID] = useState(null);
+  const [userID, setUserID] = useState(null);
   const [userToken, setUserToken] = useState(null);
+  const router = useRouter();
 
-  const login = (Token, ID) => {
+  const login = async (Token, ID, data) => {
     setUserToken(Token);
-    setuserID(ID);
+    setUserID(ID);
+
+    await AsyncStorage.setItem("User", JSON.stringify(data));
+
+    const info = await AsyncStorage.getItem("User");
+
+    // console.log("Infos User AsyncStorage", info);
   };
-  const logout = () => {
-    setuserID(null);
+  const logout = async () => {
+    await AsyncStorage.removeItem("User");
+    // console.log()
+
+    setUserID(null);
     setUserToken(null);
+
+    // console.log("Infos User AsyncStorage", info);
   };
 
   useEffect(() => {
     if (userID && userToken) {
-      router.replace("/(home)/home");
-    } else {
+      router.replace("/home");
+    } else if (!userID || !userToken) {
+      console.log("coucou");
       router.replace("/");
     }
-  }, [userToken]);
+  }, [userToken, userID]);
 
   return (
-    <AuthContext.Provider value={{ logout: logout, login: login }}>
+    <AuthContext.Provider
+      value={{
+        logout: logout,
+        login: login,
+        userID: userID,
+        userToken: userToken,
+      }}
+    >
       <Stack screenOptions={{ headerShown: false }} />
     </AuthContext.Provider>
   );
